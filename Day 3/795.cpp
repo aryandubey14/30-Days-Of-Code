@@ -6,45 +6,21 @@ using namespace std;
 
 class Solution {
 public:
-    /*int numSubarrayBoundedMax(vector<int>& nums, int left, int right) 
-    {
-        int n = nums.size();
-        int answer=0;
-
-        for (int i = 0; i < n; i++)
-        {
-            for (int j=i; j < n; j++)
-            {
-                int maxNum = nums[j];
-                maxNum = max(maxNum,nums[j]);
-
-                if (maxNum >= right)
-                {
-                    break;
-                }
-                answer++;
+    int countSubarrays(vector<int>& nums, int bound) {
+        int ans = 0, count = 0;
+        for (int num : nums) {
+            if (num <= bound) {
+                count++;
+                ans += count;
+            } else {
+                count = 0;
             }
         }
-        
-        return answer;
-    }*/
-    int numSubarrayBoundedMax(vector<int>& nums, int left, int right) 
-    {
-        int n = nums.size();
-        int answer = 0;
-        int maxNum=nums[0];
+        return ans;
+    }
 
-        for (int i = 0; i < n; i++)
-        {
-            maxNum=max(maxNum,nums[i]);
-            if (maxNum>=right)
-            {
-                break;
-            }
-            answer= answer+i+1;
-        }
-        
-        return answer;
+    int numSubarrayBoundedMax(vector<int>& nums, int left, int right) {
+        return countSubarrays(nums, right) - countSubarrays(nums, left - 1);
     }
 };
 
