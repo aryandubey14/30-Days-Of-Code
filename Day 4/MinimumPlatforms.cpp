@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include<algorithm>
 
 using namespace std;
 
@@ -10,21 +11,32 @@ class Solution {
     int findPlatform(vector<int>& arr, vector<int>& dep) 
     {
         // Your code here
-        int minPlatforms=1;
+        int minPlatforms=0;
         int n=arr.size();
-        int maxDepTime=0;
-        for (int i = 1; i < n; i++)
-        {
-            if (arr[i]<dep[i-1])
-            {
-                maxDepTime=max(maxDepTime,dep[i-1]);
-            }
 
-            if (dep[i]<maxDepTime)
+        int count=0;
+
+        sort(arr.begin(),arr.end());
+        sort(dep.begin(),dep.end());
+
+        int a=0,d=0;
+
+        while(a<n)
+        {
+            if (arr[a]<=dep[d])
             {
-                minPlatforms++;
+                count++;
+                a++;
             }
+            else
+            {
+                count--;
+                d++;
+            }
+            
+            minPlatforms=max(minPlatforms,count);
         }
+        
         return minPlatforms;
     }
 };
