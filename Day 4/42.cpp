@@ -102,6 +102,34 @@ public:
         
         return WaterTrapped;
     }
+
+    int trapMostOptimized(vector<int>& height)
+    {
+        int n = height.size();
+
+        int left=0,right=n-1;
+        int lmax=0,rmax=0;
+        int waterTrapped=0;
+
+        while(left<right)
+        {
+            lmax=max(lmax,height[left]);
+            rmax=max(rmax,height[right]);
+
+            if (lmax<rmax)
+            {
+                waterTrapped = waterTrapped + lmax-height[left];
+                left++; 
+            }
+            else
+            {
+                waterTrapped = waterTrapped + rmax-height[right];
+                right--;
+            }
+        }
+        
+        return waterTrapped;
+    }
 };
 
 int main()
