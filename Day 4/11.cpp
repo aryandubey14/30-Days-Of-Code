@@ -6,7 +6,7 @@ using namespace std;
 
 class Solution {
 public:
-    int maxArea(vector<int>& height) 
+    int maxArea2(vector<int>& height) 
     {
         int n = height.size();
         int area=0;
@@ -31,11 +31,44 @@ public:
             else
             {
                 left++;
+                right=left+1;
             }
         }
 
         return MaxArea;
     }
+
+    int maxArea(vector<int>& height) 
+    {
+        int n = height.size();
+        int area=0;
+        int MaxArea=0;
+
+        int left=0;
+        int right=n-1;
+
+
+        while (left<right)
+        {
+            int h=min(height[left],height[right]);
+            int w = right-left;
+        
+            area =h*w;
+            MaxArea=max(area,MaxArea);
+
+            if (height[left]<height[right])
+            {
+                left++;
+            }
+            else
+            {
+                right--;
+            }
+        }
+
+        return MaxArea;
+    }
+
 };
 
 int main()
